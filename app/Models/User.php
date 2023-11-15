@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class User extends Model implements Authenticatable
 {
     // Tên bảng dữ liệu tương ứng
     protected $table = 'users';
@@ -27,8 +27,36 @@ class User extends Model
     }
 
     public function shoppingCarts()
-{
-    return $this->hasMany(ShoppingCart::class);
-}
+    {
+        return $this->hasMany(ShoppingCart::class);
+    }
+    public function getAuthIdentifierName()
+    {
+        return 'id'; // Tên cột làm nhiệm vụ khóa chính
+    }
 
+    public function getAuthIdentifier()
+    {
+        return $this->{$this->getAuthIdentifierName()};
+    }
+
+    public function getAuthPassword()
+    {
+        return $this->password; // Tên cột làm nhiệm vụ mật khẩu
+    }
+
+    public function getRememberToken()
+    {
+        return $this->remember_token; // Tên cột làm nhiệm vụ remember token
+    }
+
+    public function setRememberToken($value)
+    {
+        $this->remember_token = $value;
+    }
+
+    public function getRememberTokenName()
+    {
+        return 'remember_token'; // Tên cột làm nhiệm vụ remember token
+    }
 }

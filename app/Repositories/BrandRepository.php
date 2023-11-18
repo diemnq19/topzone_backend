@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Brand;
+use App\Models\Brand;
 
 class BrandRepository extends BaseRepository
 {

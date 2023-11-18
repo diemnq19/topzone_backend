@@ -14,7 +14,8 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            return response()->json(['message' => 'Login successful', 'user' => $user]);
+            $token = $user->createToken('MyAppToken')->accessToken;
+            return response()->json(['message' => 'Login successful', 'user' => $user,'token' => $token]);
         } else {
             return response()->json(['message' => 'Login failed'], 401);
         }

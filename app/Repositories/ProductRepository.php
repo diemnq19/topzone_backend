@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Product;
+use App\Models\Product;
 
 class ProductRepository extends BaseRepository
 {

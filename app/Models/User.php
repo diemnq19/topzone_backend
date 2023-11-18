@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Model implements Authenticatable
 {
+    use HasApiTokens, Notifiable;
     // Tên bảng dữ liệu tương ứng
     protected $table = 'users';
 

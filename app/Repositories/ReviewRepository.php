@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Review;
+use App\Models\Review;
 
 class ReviewRepository extends BaseRepository
 {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class LoginController extends Controller
 {
@@ -14,7 +15,7 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = $user->createToken('MyAppToken')->accessToken;
+            $token = JWTAuth::fromUser(Auth::user());
             return response()->json(['message' => 'Login successful', 'user' => $user,'token' => $token]);
         } else {
             return response()->json(['message' => 'Login failed'], 401);

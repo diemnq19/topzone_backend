@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\ProductRepository;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ProductController extends Controller
 {
@@ -22,10 +23,14 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-    // Create - Store a newly created product in the database
+
+
     public function store(Request $request)
     {
+        $uploadedFile = $request->file('image');
+        $upload = Cloudinary::upload($uploadedFile->getRealPath());
         $data = $request->all();
+        $data['image_url'] =  $upload->getSecurePath();
 
         $product = $this->productRepository->save($data);
 

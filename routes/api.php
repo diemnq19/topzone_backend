@@ -29,12 +29,12 @@ Route::get('/login/index', [App\Http\Controllers\Auth\LoginController::class, 'i
 Route::middleware(['auth'])->group(function () {
     Route::get('/user',  [App\Http\Controllers\UserController::class, 'user'])->name('user');
 });
-Route::group(['middleware' => 'jwt.auth'], function () {
+
     Route::resource('brands', BrandController::class);
     Route::resource('news', NewsController::class);
     Route::resource('reviews', ReviewController::class);
     Route::resource('products', ProductController::class);
     Route::resource('shopping-carts', ShoppingCartController::class);
     Route::resource('orders', OrderController::class);
-});
+
 

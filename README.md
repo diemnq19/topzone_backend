@@ -45,13 +45,12 @@ Nếu báo chưa có key app thì chạy câu lệnh
 
 ``` php artisan key:generate``` 
 
-
-Chạy câu lệnh để tạo secret key cho jwt tạo login token cho user 
-``` php artisan jwt:secret ```
-
 Chạy câu lệnh để tạo dữ liệu giả 
 ```php artisan seeder```
 
+
+Chạy câu lệnh để tạo secret key cho jwt tạo login token cho user 
+``` php artisan jwt:secret ```
 
 Bạn đã hoàn thành! Bây giờ bạn có thể bắt đầu phát triển ứng dụng Laravel của mình. Hãy xem tài liệu chính thức của Laravel để tìm hiểu thêm về cách sử dụng và phát triển ứng dụng: https://laravel.com/docs
 

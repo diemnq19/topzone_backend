@@ -9,7 +9,7 @@ class Product extends Model
     protected $table = 'products';
 
     protected $fillable = [
-        'name', 'description', 'price', 'brand_id'
+        'name', 'description', 'price', 'brand_id','image_url','percent_discount', 'unit'
     ];
 
     public function brand()
@@ -17,4 +17,13 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function setImageUrlAttribute($value)
+    {
+        $this->attributes['image_url'] = json_encode($value);
+    }
+
+    public function getImageUrlAttribute($value)
+    {
+        return json_decode($value, true);
+    }
 }

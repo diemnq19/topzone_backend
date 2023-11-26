@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\BrandRepository;
 use Illuminate\Http\Request;
 use App\Repositories\ProductRepository;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
@@ -9,10 +10,12 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 class ProductController extends Controller
 {
     protected $productRepository;
+    protected $brandRepository;
 
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepository $productRepository, BrandRepository $brandRepository)
     {
         $this->productRepository = $productRepository;
+        $this->brandRepository = $brandRepository;
     }
 
     // Index - List all products
@@ -33,8 +36,9 @@ class ProductController extends Controller
         $data['image_url'] =  $upload->getSecurePath();
 
         $product = $this->productRepository->save($data);
+        $brand = $this->brandRepository->findById($product->brand_id);
 
-        return response()->json(['message' => 'Product created successfully', 'product' => $product]);
+        return response()->json(['message' => 'Product created successfully', 'product' => $product, 'brand'=> $brand]);
     }
 
     // Show - Display the specified product

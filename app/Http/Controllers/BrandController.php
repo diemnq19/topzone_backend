@@ -32,7 +32,6 @@ class BrandController extends Controller
         return response()->json(['message' => 'Brand created successfully', 'brand' => $brand]);
     }
 
-    // Show - Display the specified brand
     public function show($id)
     {
         $brand = $this->brandRepository->findById($id);

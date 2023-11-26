@@ -23,10 +23,7 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function get()
     {
-        return $this->model->where(function($query) {
-            $tableName = $this->model->getTable();
-            $query->whereNull("{$tableName}.delete_key")->orWhere("{$tableName}.delete_key", 0);
-        })->get();
+        return $this->model->get();
     }
 
     /**
@@ -34,10 +31,7 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function with(array $withRelation)
     {
-        return $this->model->where(function($query) {
-                $tableName = $this->model->getTable();
-                $query->whereNull("{$tableName}.delete_key")->orWhere("{$tableName}.delete_key", 0);
-            })->with($withRelation);
+        return $this->model->with($withRelation);
     }
 
     /**
@@ -45,10 +39,7 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function paginate(array $inputs = [], $limit = self::PER_PAGE, array $withRelation = [])
     {
-        $query = $this->model->query()->where(function($query) {
-            $tableName = $this->model->getTable();
-            $query->whereNull("{$tableName}.delete_key")->orWhere("{$tableName}.delete_key", 0);
-        });
+        $query = $this->model->query();
 
         if ($this->isValidSortColumn($inputs['sort_column'] ?? null) && $this->isValidSortType($inputs['sort_type'] ?? null)) {
             $query->orderBy($inputs['sort_column'], $inputs['sort_type']);
@@ -66,22 +57,18 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function findById($id)
     {
-        return $this->model->where(function($query) {
-            $tableName = $this->model->getTable();
-            $query->whereNull("{$tableName}.delete_key")->orWhere("{$tableName}.delete_key", 0);
-        })->find($id);
+        return $this->model->find($id);
     }
+
 
     /**
      * @return mixed
      */
     public function findByIdWithRelation($id, array $withRelation)
     {
-        return $this->model->where(function($query) {
-            $tableName = $this->model->getTable();
-            $query->whereNull("{$tableName}.delete_key")->orWhere("{$tableName}.delete_key", 0);
-        })->with($withRelation)->find($id);
+        return $this->model->with($withRelation)->find($id);
     }
+
 
     /**
      * @return mixed

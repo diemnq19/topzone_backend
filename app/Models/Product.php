@@ -26,4 +26,12 @@ class Product extends Model
     {
         return json_decode($value, true);
     }
+    public function getFullBrandInfoAttribute()
+    {
+        if ($this->brand) {
+            return $this->brand->toArray();
+        } else {
+            return null;
+        }
+    }
 }

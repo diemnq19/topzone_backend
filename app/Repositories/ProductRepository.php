@@ -12,4 +12,24 @@ class ProductRepository extends BaseRepository
     {
         $this->model = $model;
     }
+
+    public function getProductByCondition($brandId = null, $sortBy = null)
+    {
+        $query = $this->model->query();
+
+        if ($brandId !== null) {
+            $query->where('brand_id', $brandId);
+        }
+
+        if ($sortBy === 'priceup') {
+            $query->orderBy('price', 'asc');
+        } elseif ($sortBy === 'pricedown') {
+            $query->orderBy('price', 'desc');
+        }
+
+        $products = $query->get();
+
+        return $products;
+    }
+
 }

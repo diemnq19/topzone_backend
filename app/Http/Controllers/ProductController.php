@@ -19,13 +19,20 @@ class ProductController extends Controller
     }
 
     // Index - List all products
-    public function index()
+    public function index(Request $request)
     {
+        $brandId = $request->input('brand_id');
+        $sortBy = $request->input('sort_by');
+
         $products = $this->productRepository->get();
+
+        if ($brandId || $sortBy) {
+
+            $products = $this->productRepository->getProductByCondition($brandId, $sortBy);
+        }
 
         return response()->json($products);
     }
-
 
 
     public function store(Request $request)

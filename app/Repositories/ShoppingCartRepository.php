@@ -12,4 +12,10 @@ class ShoppingCartRepository extends BaseRepository
     {
         $this->model = $model;
     }
+
+    public function findByUserId($id){
+        return $this->model->where('user_id', $id)
+        ->where('progress', false)
+        ->get();
+    }
 }

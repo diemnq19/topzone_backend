@@ -35,7 +35,7 @@ class ShoppingCartController extends Controller
     // Show - Display the specified item in the shopping cart
     public function show($id)
     {
-        $item = $this->shoppingCartRepository->findById($id);
+        $item = $this->shoppingCartRepository->findByUserId($id);
 
         if ($item) {
             return response()->json($item);

@@ -17,6 +17,11 @@ class Product extends Model
         return $this->belongsTo(Brand::class);
     }
 
+    public function shoppingCarts()
+    {
+        return $this->belongsTo(ShoppingCart::class);
+    }
+
     public function setImageUrlAttribute($value)
     {
         $this->attributes['image_url'] = json_encode($value);

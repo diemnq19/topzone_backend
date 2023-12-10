@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
 use App\Repositories\ShoppingCartRepository;
 
 class ShoppingCartController extends Controller
 {
     protected $shoppingCartRepository;
+    protected $productRepository;
 
-    public function __construct(ShoppingCartRepository $shoppingCartRepository)
+    public function __construct(ShoppingCartRepository $shoppingCartRepository, ProductRepository $productRepository)
     {
         $this->shoppingCartRepository = $shoppingCartRepository;
+        $this->productRepository = $productRepository;
     }
 
     // Index - List all items in the shopping cart
@@ -26,8 +29,9 @@ class ShoppingCartController extends Controller
         $data = $request->all();
 
         $item = $this->shoppingCartRepository->save($data);
+        $product = $this->productRepository->findById($data['product_id']);
 
-        return response()->json(['message' => 'Item added to the shopping cart successfully', 'item' => $item]);
+        return response()->json(['message' => 'Item added to the shopping cart successfully', 'item' => $item, 'product'=>$product]);
     }
 
     // Show - Display the specified item in the shopping cart

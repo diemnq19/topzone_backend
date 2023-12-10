@@ -27,7 +27,7 @@ class ShoppingCartController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-
+        $data['progress'] = false;
         $item = $this->shoppingCartRepository->save($data);
         $product = $this->productRepository->findById($data['product_id']);
 

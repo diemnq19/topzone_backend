@@ -19,7 +19,7 @@ class Product extends Model
 
     public function shoppingCarts()
     {
-        return $this->belongsTo(ShoppingCart::class);
+        return $this->hasMany(ShoppingCart::class);
     }
 
     public function setImageUrlAttribute($value)

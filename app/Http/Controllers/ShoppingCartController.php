@@ -17,9 +17,7 @@ class ShoppingCartController extends Controller
     // Index - List all items in the shopping cart
     public function index()
     {
-        $items = $this->shoppingCartRepository->get();
-
-        return response()->json($items);
+        return response()->json(['message' => 'User Not Found'], 404);
     }
 
     // Create - Add a new item to the shopping cart

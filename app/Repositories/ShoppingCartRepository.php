@@ -16,6 +16,7 @@ class ShoppingCartRepository extends BaseRepository
     public function findByUserId($id){
         return $this->model->where('user_id', $id)
         ->where('progress', false)
+        ->with('product')
         ->get();
     }
 }

@@ -19,4 +19,9 @@ class ShoppingCartRepository extends BaseRepository
         ->with('product')
         ->get();
     }
+
+    public function updateProgress($shoppingCartList)
+    {
+        $this->model->whereIn('id', $shoppingCartList)->update(['progress' => true]);
+    }
 }

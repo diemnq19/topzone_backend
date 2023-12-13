@@ -9,6 +9,10 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'shipping_address', 'order_status', 'receiver_name', 'receiver_phone'
+    ];
+
     public function shoppingCarts()
 {
     return $this->hasMany(ShoppingCart::class);

@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\OrderRepository;
+use App\Repositories\ShoppingCartRepository;
 
 class OrderController extends Controller
 {
     protected $orderRepository;
+    protected $shoppingCartRepository;
 
-    public function __construct(OrderRepository $orderRepository)
+    public function __construct(OrderRepository $orderRepository, ShoppingCartRepository $shoppingCartRepository)
     {
+        $this->shoppingCartRepository = $shoppingCartRepository;
         $this->orderRepository = $orderRepository;
     }
 
@@ -26,9 +29,11 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+        $shoppingCartList = json_decode($data['shopping_cart_list']);
+        $this->shoppingCartRepository->updateProgress($shoppingCartList);
+        unset($data['shopping_cart_list']);
 
         $order = $this->orderRepository->save($data);
-
         return response()->json(['message' => 'Order created successfully', 'order' => $order]);
     }
 

@@ -10,17 +10,22 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 class LoginController extends Controller
 {
     public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
+{
+    $credentials = $request->only('email', 'password');
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
+        $token = JWTAuth::fromUser($user);
 
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $token = JWTAuth::fromUser(Auth::user());
-            return response()->json(['message' => 'Login successful', 'user' => $user,'token' => $token]);
-        } else {
-            return response()->json(['message' => 'Login failed'], 401);
+        $response = ['message' => 'Login successful', 'user' => $user, 'token' => $token];
+        if ($user->is_admin) {
+            $response['is_admin'] = true;
         }
+
+        return response()->json($response);
+    } else {
+        return response()->json(['message' => 'Login failed'], 401);
     }
+}
 
     public function logout(Request $request)
     {

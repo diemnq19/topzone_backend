@@ -23,12 +23,13 @@ class ProductController extends Controller
     {
         $brandId = $request->input('brand_id');
         $sortBy = $request->input('sort_by');
+        $name = $request->input('name');
 
         $products = $this->productRepository->get();
 
-        if ($brandId || $sortBy) {
+        if ($brandId || $sortBy || $name) {
 
-            $products = $this->productRepository->getProductByCondition($brandId, $sortBy);
+            $products = $this->productRepository->getProductByCondition($brandId, $sortBy, $name);
         }
 
         return response()->json($products);

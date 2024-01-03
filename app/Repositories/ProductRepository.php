@@ -13,12 +13,16 @@ class ProductRepository extends BaseRepository
         $this->model = $model;
     }
 
-    public function getProductByCondition($brandId = null, $sortBy = null)
+    public function getProductByCondition($brandId = null, $sortBy = null, $name = null)
     {
         $query = $this->model->query();
 
         if ($brandId !== null) {
             $query->where('brand_id', $brandId);
+        }
+
+        if ($name !== null) {
+            $query->where('name', 'like', '%' . $name . '%');
         }
 
         if ($sortBy === 'priceup') {

@@ -38,9 +38,11 @@ class OrderController extends Controller
     }
 
     // Show - Display the specified order
-    public function show($id)
+    public function show(Request $request)
     {
-        $order = $this->orderRepository->findById($id);
+        $data = $request->all();
+        $id = $data['user_id'];
+        $order = $this->orderRepository->findByUserId($id);
 
         if ($order) {
             return response()->json($order);

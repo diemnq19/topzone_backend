@@ -26,10 +26,11 @@ Route::post('/login', [App\Http\Controllers\Auth\LoginController::class,'login']
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::get('/login/index', [App\Http\Controllers\Auth\LoginController::class, 'index']);
+Route::post('/updatepassword',  [App\Http\Controllers\UserController::class, 'updatePassword'])->name('update_password');
 Route::middleware(['auth'])->group(function () {
     Route::get('/user',  [App\Http\Controllers\UserController::class, 'user'])->name('user');
 });
-
+    Route::resource('user', BrandController::class);
     Route::resource('brands', BrandController::class);
     Route::resource('news', NewsController::class);
     Route::resource('reviews', ReviewController::class);

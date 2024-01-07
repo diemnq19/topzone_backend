@@ -53,7 +53,7 @@ class UserController extends Controller
         return response()->json(['message' => 'User updated successfully', 'user' => $user]);
     }
 
-    public function updatePassword(Request $request, $id)
+    public function updatePassword(Request $request)
     {
         $data = $request->all();
 
@@ -61,7 +61,7 @@ class UserController extends Controller
             return response()->json(['message' => 'Both old_password and new_password are required.'], 400);
         }
 
-        $user = $this->userRepository->findById($id);
+        $user = $this->userRepository->findById($data['user_id']);
 
         if (!$user) {
             return response()->json(['message' => 'User not found.'], 404);

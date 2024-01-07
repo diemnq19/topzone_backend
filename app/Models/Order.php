@@ -10,7 +10,7 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'shipping_address', 'order_status', 'receiver_name', 'receiver_phone'
+        'shipping_address', 'order_status', 'receiver_name', 'receiver_phone','user_id'
     ];
 
     public function shoppingCarts()

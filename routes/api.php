@@ -7,6 +7,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,7 +31,7 @@ Route::post('/updatepassword',  [App\Http\Controllers\UserController::class, 'up
 Route::middleware(['auth'])->group(function () {
     Route::get('/user',  [App\Http\Controllers\UserController::class, 'user'])->name('user');
 });
-    Route::resource('user', BrandController::class);
+    Route::resource('user', UserController::class);
     Route::resource('brands', BrandController::class);
     Route::resource('news', NewsController::class);
     Route::resource('reviews', ReviewController::class);

@@ -18,21 +18,27 @@ class OrderController extends Controller
     }
 
     // Index - List all orders
-    public function index()
+    public function index(Request $request)
     {
-        $orders = $this->orderRepository->get();
+        $data = $request->all();
+        $id = $data['user_id'];
+        $order = $this->orderRepository->findByUserId($id);
 
-        return response()->json($orders);
+
+        if ($order) {
+            return response()->json(['order' => $order]);
+        }
+
+        return response()->json(['message' => 'Order not found'], 404);
     }
 
     // Create - Store a newly created order in the database
     public function store(Request $request)
     {
         $data = $request->all();
-        $shoppingCartList = json_decode($data['shopping_cart_list']);
+        $shoppingCartList = json_decode($data['shopping_carts']);
         $this->shoppingCartRepository->updateProgress($shoppingCartList);
-        unset($data['shopping_cart_list']);
-
+        $data['shopping_carts'] = $this->shoppingCartRepository->findByIds($data['shopping_carts']);
         $order = $this->orderRepository->save($data);
         return response()->json(['message' => 'Order created successfully', 'order' => $order]);
     }
@@ -40,15 +46,7 @@ class OrderController extends Controller
     // Show - Display the specified order
     public function show(Request $request)
     {
-        $data = $request->all();
-        $id = $data['user_id'];
-        $order = $this->orderRepository->findByUserId($id);
 
-        if ($order) {
-            return response()->json($order);
-        }
-
-        return response()->json(['message' => 'Order not found'], 404);
     }
 
     // Update - Update the specified order in the database

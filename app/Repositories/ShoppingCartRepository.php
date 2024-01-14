@@ -24,4 +24,12 @@ class ShoppingCartRepository extends BaseRepository
     {
         $this->model->whereIn('id', $shoppingCartList)->update(['progress' => true]);
     }
+
+    public function findByIds($shoppingCartList)
+    {
+        return $this->model->whereIn('id', $shoppingCartList)
+                          ->with('product')
+                          ->get();
+    }
+
 }

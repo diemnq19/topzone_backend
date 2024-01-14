@@ -22,7 +22,9 @@ class ShoppingCartRepository extends BaseRepository
 
     public function updateProgress($shoppingCartList)
     {
+        if (is_array($shoppingCartList) && !empty($shoppingCartList)) {
         $this->model->whereIn('id', $shoppingCartList)->update(['progress' => true]);
+        }
     }
 
     public function findByIds($shoppingCartList)

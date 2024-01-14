@@ -36,9 +36,8 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        $shoppingCartList = json_decode($data['shopping_carts']);
+        $shoppingCartList = json_decode($data['shopping_carts'], true);
         $this->shoppingCartRepository->updateProgress($shoppingCartList);
-        $data['shopping_carts'] = $this->shoppingCartRepository->findByIds($data['shopping_carts']);
         $order = $this->orderRepository->save($data);
         return response()->json(['message' => 'Order created successfully', 'order' => $order]);
     }

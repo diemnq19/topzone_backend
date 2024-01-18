@@ -21,15 +21,22 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         $data = $request->all();
-        $id = $data['user_id'];
-        $order = $this->orderRepository->findByUserId($id);
 
+        if (isset($data['user_id'])) {
+            $id = $data['user_id'];
+            $order = $this->orderRepository->findByUserId($id);
 
-        if ($order) {
-            return response()->json(['order' => $order]);
+            if ($order) {
+                return response()->json(['order' => $order]);
+            }
+
+            return response()->json(['message' => 'Order not found'], 404);
         }
 
-        return response()->json(['message' => 'Order not found'], 404);
+        // Nếu không có 'user_id', lấy tất cả các đơn hàng
+        $orders = $this->orderRepository->get();
+
+        return response()->json(['orders' => $orders]);
     }
 
     // Create - Store a newly created order in the database
@@ -45,7 +52,6 @@ class OrderController extends Controller
     // Show - Display the specified order
     public function show(Request $request)
     {
-
     }
 
     // Update - Update the specified order in the database

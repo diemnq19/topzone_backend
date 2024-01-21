@@ -15,7 +15,7 @@ Cài đặt Laravel Installer: Mở cửa sổ dòng lệnh và chạy câu lệ
 Clone và cấu hình ứng dụng Laravel
 Clone mã nguồn ứng dụng: Mở cửa sổ dòng lệnh và điều hướng đến thư mục bạn muốn lưu trữ mã nguồn của ứng dụng. Sau đó, chạy lệnh sau để clone mã nguồn từ kho lưu trữ:
 
-``` git clone https://github.com/ducvo177/graduation-thesis-sharing.git``` 
+``` git clone https://github.com/diemnq19/topzone_backend.git``` 
 
 Di chuyển vào thư mục ứng dụng: Chạy lệnh sau để di chuyển vào thư mục ứng dụng:
 
